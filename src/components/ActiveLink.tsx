@@ -20,6 +20,12 @@ export function ActiveLink ({
     isActive = true;
   }
 
+  if(!shouldMatchExactHref && 
+    (asPath.startsWith(String(rest.href)) ||
+    asPath.startsWith(String(rest.as)))) {
+      isActive = true;
+  }
+
   return (
     <Link {...rest}>
       {cloneElement(children, {
