@@ -10,6 +10,10 @@ type SignInFormData = {
 export default function SignIn() {
   const { register, handleSubmit, formState } = useForm()
 
+  const errors = formState.errors;
+
+  console.log(errors);
+
   const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
     await new Promise(resolve => setTimeout(resolve, 2000))
     console.log(values);
@@ -38,8 +42,20 @@ export default function SignIn() {
 
       <Stack spacing="4">
 
-        <Input name="email" type="email" label="E-mail" {...register('email')} />
-        <Input name="password" type="password" label="Senha" {...register('password')} />
+        <Input 
+          name="email" 
+          type="email" 
+          label="E-mail"
+          error={errors.email} 
+          {...register('email', {required: 'E-mail obrigatório'})} 
+        />
+
+        <Input 
+          name="password" 
+          type="password" 
+          label="Senha" 
+          {...register('password')} 
+        />
         
       </Stack>
         <Button 
