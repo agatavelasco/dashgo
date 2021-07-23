@@ -1,4 +1,5 @@
-import { createServer, Model } from 'miragejs'
+import { createServer, Factory, Model } from 'miragejs'
+import faker from 'faker'
 
 type User = { //como se User fosse a tabela e as colunas: name, email, created_at
   name: string;
@@ -12,6 +13,24 @@ export function makeServer() {
       user: Model.extend<Partial<User>>({})
     },
 
+    factories: {
+      user: Factory.extend({
+        name(i: number) {
+          return  `User ${i + 1}`
+        },
+        email() {
+          return faker.internet.email().toLocaleLowerCase();
+        },
+        createdAt() {
+          return faker.date.recent(10);
+        }
+      })
+    },
+
+    seeds(server) {
+      server.createList('user', 200) // criar 200 usuarios
+    },
+
     routes() {
 
       this.namespace = 'api'; // a rota para acessar será /api/users
@@ -21,6 +40,7 @@ export function makeServer() {
       this.post('/users');
 
       this.namespace = ''; // reseta o namespace para nao prejudicar caso haja pasta api no next
+      this.passthrough()
     }
   })
 
