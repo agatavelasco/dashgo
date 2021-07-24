@@ -66,29 +66,33 @@ export default function UserList() {
                 </Thead>
 
                 <Tbody>
-                  <Tr>
-                    <Td px={["4", "4", "6"]}>
-                      <Checkbox colorScheme="pink" />
-                    </Td>
-                    <Td>
-                      <Box>
-                        <Text fontWeight="bold">Agata Velasco</Text>
-                        <Text fontSize="sm" color="gray.300">avpenze@gmail.com</Text>
-                      </Box>
-                    </Td>
-                    { isWideVersion && <Td>09 de Julho, 2021</Td>}
-                    <Td>
-                      <Button 
-                        as="a" 
-                        size="sm" 
-                        fontSize="sm" 
-                        colorScheme="purple"
-                        leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                      >
-                        Editar
-                      </Button>
-                    </Td>
-                  </Tr>
+                  {data.users.map(user => {
+                    return (
+                      <Tr key={user.id}>
+                        <Td px={["4", "4", "6"]}>
+                          <Checkbox colorScheme="pink" />
+                        </Td>
+                        <Td>
+                          <Box>
+                            <Text fontWeight="bold">{user.name}</Text>
+                            <Text fontSize="sm" color="gray.300">{user.email}</Text>
+                          </Box>
+                        </Td>
+                        { isWideVersion && <Td>{user.created_at}</Td>}
+                        <Td>
+                          <Button 
+                            as="a" 
+                            size="sm" 
+                            fontSize="sm" 
+                            colorScheme="purple"
+                            leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                          >
+                            Editar
+                          </Button>
+                        </Td>
+                    </Tr>
+                    )
+                  })}
                 </Tbody>
               </Table>
             <Pagination />
