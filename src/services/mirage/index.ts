@@ -53,6 +53,8 @@ export function makeServer() {
           { users }
         )
       });
+
+      this.get('/users/:id');
       this.post('/users');
 
       this.namespace = ''; // reseta o namespace para nao prejudicar caso haja pasta api no next
