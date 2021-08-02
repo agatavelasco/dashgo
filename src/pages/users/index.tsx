@@ -10,14 +10,19 @@ import { queryClient } from "../../services/queryClient";
 import { api } from "../../services/api";
 import { GetServerSideProps } from "next";
 
-interface User {
+type User = {
   id: string;
   name: string;
   email: string;
   createdAt: string;
 }
 
-export default function UserList({ users }: User) {
+interface UserProps {
+  users: User[],
+  totalCount: number,
+}
+
+export default function UserList({ users }: UserProps) {
 
   const [page, setPage] = useState(1);
 
